@@ -1,14 +1,9 @@
 // Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+var Enemy = function(x, y, speed) {
     this.sprite = 'images/enemy-bug.png';
-    this.x = 50;
-    this.y = 100;
-    this.speed = Math.random() * 400;
+    this.x = x;
+    this.y = y;
+    this.speed = Math.random() * 150 + 100;
 };
 
 // Update the enemy's position, required method for game
@@ -17,7 +12,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x < 505 ? this.x += this.speed * dt : this.x = 0;
+    this.x < 505 ? this.x += this.speed * dt : this.x = -101;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -28,30 +23,29 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-class Character {
+var Character = function(x, y) {
+  this.sprite = 'images/char-boy.png';
+  this.x = x;
+  this.y = y;
+};
 
-  constructor() {
-    this.x = 100;
-    this.y = 50;
-    this.sprite = 'images/char-cat-girl.png';
-  }
+Character.prototype.update = function(dt) {
 
-  update(){
+};
 
-  };
-
-  render() {
-
-  }
-}
+Character.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 const allEnemies = [];
 const player = new Character();
-const insect = new Enemy();
-allEnemies.push(insect);
+const insectOne = new Enemy(101, 101, 1);
+const insectTwo = new Enemy(202, 202, 1);
+const insectThree = new Enemy(303, 303, 1);
+allEnemies.push(insectOne, insectTwo, insectThree);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
