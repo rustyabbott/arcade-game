@@ -29,8 +29,15 @@ var Character = function(x, y) {
   this.y = y;
 };
 
-Character.prototype.update = function() {
+Character.prototype.reset = function(x, y) {
+  this.x = x;
+  this.y = y;
+}
 
+Character.prototype.update = function() {
+  if (this.y <= 0) {
+    this.reset(202, 375);
+  }
 };
 
 Character.prototype.render = function() {
