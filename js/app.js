@@ -29,7 +29,7 @@ var Character = function(x, y) {
   this.y = y;
 };
 
-Character.prototype.update = function(dt) {
+Character.prototype.update = function() {
 
 };
 
@@ -37,14 +37,28 @@ Character.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Character.prototype.handleInput = function(key) {
+  if (key === 'right') {
+    this.x += 101;
+  } else if (key === 'left') {
+    this.x -= 101;
+  } else if (key === 'up') {
+    this.y -= 83;
+  } else if (key === 'down') {
+    this.y += 83;
+  } else {
+    '';
+  }
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 const allEnemies = [];
-const player = new Character();
-const insectOne = new Enemy(101, 101, 1);
-const insectTwo = new Enemy(202, 202, 1);
-const insectThree = new Enemy(303, 303, 1);
+const player = new Character(202, 375);
+const insectOne = new Enemy(0, 63, 1);
+const insectTwo = new Enemy(220, 146, 10);
+const insectThree = new Enemy(350, 229, 15);
 allEnemies.push(insectOne, insectTwo, insectThree);
 
 // This listens for key presses and sends the keys to your
