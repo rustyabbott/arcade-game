@@ -4,6 +4,10 @@ var Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = Math.random() * 150 + 100;
+
+    // Enemy collision zone
+    this.height = 50;
+    this.width = 55;
 }
 
 // Update the enemy's position
@@ -22,6 +26,10 @@ var Character = function(x, y) {
   this.sprite = 'images/char-boy.png';
   this.x = x;
   this.y = y;
+
+  // player colllision zone
+  this.height = 50;
+  this.width = 50;
 }
 
 Character.prototype.reset = function() {
@@ -37,9 +45,13 @@ Character.prototype.update = function() {
 
   // Collision detection
   for (let enemy of allEnemies) {
-    if ((this.x === Math.floor(enemy.x)) && ((this.y + 20) === enemy.y)) {
-      console.log('Collision at coordinates: ' + this.x + ', ' + this.y);
-      this.reset();
+    if (this.x < enemy.x + enemy.width &&
+      this.x + this.width > enemy.x &&
+      this.y < enemy.y + enemy.height &&
+      this.y + this.height > enemy.y) {
+        console.log('Collision at Character: ' + this.x + ', ' + this.y); // Debugger
+        console.log('Collision at Enemy: ' + enemy.x + ', ' + enemy.y); // Debugger
+        this.reset();
     }
   }
 }
@@ -53,23 +65,14 @@ Character.prototype.handleInput = function(key) {
   if (key === 'right') {
     this.x += 101;
     // Debugger: log coordinates after moving
-    console.log('Character: ' + this.x + ', ' + this.y);
-    console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
+    // console.log('Character: ' + this.x + ', ' + this.y);
+    // console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   } else if (key === 'left') {
     this.x -= 101;
-    // Debugger: log coordinates after moving
-    console.log('Character: ' + this.x + ', ' + this.y);
-    console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   } else if (key === 'up') {
     this.y -= 83;
-    // Debugger: log coordinates after moving
-    console.log('Character: ' + this.x + ', ' + this.y);
-    console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   } else if (key === 'down') {
     this.y += 83;
-    // Debugger: log coordinates after moving
-    console.log('Character: ' + this.x + ', ' + this.y);
-    console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   }
 }
 
