@@ -6,23 +6,18 @@ var Enemy = function(x, y, speed) {
     this.speed = Math.random() * 150 + 100;
 }
 
-// Update the enemy's position, required method for game
+// Update the enemy's position
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     this.x < 505 ? this.x += this.speed * dt : this.x = -101;
 }
 
-// Draw the enemy on the screen, required method for game
+// Draw the enemy on the screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
+// Your player
 var Character = function(x, y) {
   this.sprite = 'images/char-boy.png';
   this.x = x;
@@ -43,11 +38,13 @@ Character.prototype.update = function() {
   // Collision detection
   for (let enemy of allEnemies) {
     if ((this.x === Math.floor(enemy.x)) && ((this.y + 20) === enemy.y)) {
-      console.log('Collision at Character coordinates: ' + this.x + ', ' + this.y);
+      console.log('Collision at coordinates: ' + this.x + ', ' + this.y);
+      this.reset();
     }
   }
 }
 
+// Draw the player
 Character.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
@@ -55,26 +52,27 @@ Character.prototype.render = function() {
 Character.prototype.handleInput = function(key) {
   if (key === 'right') {
     this.x += 101;
+    // Debugger: log coordinates after moving
     console.log('Character: ' + this.x + ', ' + this.y);
     console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   } else if (key === 'left') {
     this.x -= 101;
+    // Debugger: log coordinates after moving
     console.log('Character: ' + this.x + ', ' + this.y);
     console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   } else if (key === 'up') {
     this.y -= 83;
+    // Debugger: log coordinates after moving
     console.log('Character: ' + this.x + ', ' + this.y);
     console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   } else if (key === 'down') {
     this.y += 83;
+    // Debugger: log coordinates after moving
     console.log('Character: ' + this.x + ', ' + this.y);
     console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
   }
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 const allEnemies = [];
 const player = new Character(202, 375);
 const insectOne = new Enemy(0, 63, 1);
@@ -82,8 +80,7 @@ const insectTwo = new Enemy(220, 146, 10);
 const insectThree = new Enemy(350, 229, 15);
 allEnemies.push(insectOne, insectTwo, insectThree);
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Listen for key presses and send the keys to the Player.handleInput() method
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
