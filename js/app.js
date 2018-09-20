@@ -49,8 +49,6 @@ Character.prototype.update = function() {
       this.x + this.width > enemy.x &&
       this.y < enemy.y + enemy.height &&
       this.y + this.height > enemy.y) {
-        console.log('Collision at Character: ' + this.x + ', ' + this.y); // Debugger
-        console.log('Collision at Enemy: ' + enemy.x + ', ' + enemy.y); // Debugger
         this.reset();
     }
   }
@@ -62,16 +60,13 @@ Character.prototype.render = function() {
 }
 
 Character.prototype.handleInput = function(key) {
-  if (key === 'right') {
+  if (key === 'right' && this.x < 404) {
     this.x += 101;
-    // Debugger: log coordinates after moving
-    // console.log('Character: ' + this.x + ', ' + this.y);
-    // console.log('Enemy: ' + Math.floor(allEnemies[2].x) + ', ' + allEnemies[2].y);
-  } else if (key === 'left') {
+  } else if (key === 'left' && this.x > 0) {
     this.x -= 101;
   } else if (key === 'up') {
     this.y -= 83;
-  } else if (key === 'down') {
+  } else if (key === 'down' && this.y < 375) {
     this.y += 83;
   }
 }
