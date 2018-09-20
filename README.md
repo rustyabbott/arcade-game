@@ -17,6 +17,8 @@ Welcome! This game is similar to the classic "Frogger" arcade game. Use the arro
 6. Avoid colliding with the insects.
 7. Make it to the water to win!
 
+Play the game online by visiting [rusty.ninja/arcade-game](http://rusty.ninja/arcade-game/)
+
 ## Contributing
 
 No contributions accepted at this time.
